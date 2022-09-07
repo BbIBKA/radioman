@@ -25,16 +25,11 @@ public class Radio {
 
     public void nextStation() {
 
-        if (currentStation > maxStation) {
-            setCurrentStation(minStation);
-        }
         if (currentStation == maxStation) {
             setCurrentStation(minStation);
         } else {
             setCurrentStation(currentStation + 1);
         }
-
-
     }
 
     public void prevStation() {
