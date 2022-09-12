@@ -1,73 +1,98 @@
 public class Radio {
-    private int currentStation;
-    public int maxStation = 9;
-    public int minStation = 0;
+    private String radioName = "Конструктор";
+    private int station;
+    private short stationsQuantity = 10;
+    private int volume = 15;
 
-    private int volumeRadio;
 
-    public int volumeMax = 10;
-
-    public int volumeMin = 0;
-
-    public int getCurrentStation() {
-        return currentStation;
+    public Radio() {
     }
 
-    public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation < minStation) {
+    public Radio(int volume) {
+        if (volume > 100) {
             return;
         }
-        if (newCurrentStation > maxStation) {
+        if (volume < 0) {
             return;
         }
-        currentStation = newCurrentStation;
+        this.volume = volume;
     }
 
-    public void nextStation() {
-
-        if (currentStation == maxStation) {
-            setCurrentStation(minStation);
-        } else {
-            setCurrentStation(currentStation + 1);
-        }
+    public Radio(short stationsQuantity) {
+        setStationsQuantity(stationsQuantity);
     }
 
-    public void prevStation() {
-        if (currentStation == minStation) {
-            setCurrentStation(maxStation);
-        } else {
-            setCurrentStation(currentStation - 1);
-        }
+    public Radio(String radioName, int station) {
+        this.radioName = radioName;
+        setStation(station);
     }
 
-
-    public int getCurrentVolume() {
-        return volumeRadio;
-    }
-
-    public void setCurrentVolume(int newVolumeRadio) {
-        if (newVolumeRadio < volumeMin) {
+    public void setStationsQuantity(short stationsQuantity) {
+        if (stationsQuantity > 120) {
             return;
         }
-        if (newVolumeRadio > volumeMax) {
+        if (stationsQuantity < 1) {
             return;
         }
-        volumeRadio = newVolumeRadio;
+        this.stationsQuantity = stationsQuantity;
     }
+
+    public void setStation(int station) {
+        if (station > stationsQuantity) {
+            return;
+        }
+        if (station < 0) {
+            return;
+        }
+        this.station = station;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
+
+    public void switchStationUp() {
+        if (station == stationsQuantity) {
+            setStation(0);
+            return;
+        }
+        setStation(++station);
+    }
+
+    public void switchStationDown() {
+        if (station == 0) {
+            setStation(stationsQuantity);
+            return;
+        }
+        setStation(--station);
+    }
+
 
     public void increaseVolume() {
-        if (volumeRadio == volumeMax) {
-            setCurrentVolume(volumeMax);
-        } else {
-            volumeRadio = volumeRadio + 1;
+        if (volume == 100) {
+            return;
         }
+        setVolume(++volume);
     }
 
-    public void reduceVolume() {
-        if (volumeRadio > volumeMin) {
-            setCurrentVolume(volumeRadio - 1);
-        } else {
-            setCurrentVolume(volumeMin);
+    public void decreaseVolume() {
+        if (volume == 0) {
+            return;
         }
+        setVolume(--volume);
+    }
+
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public int getStation() {
+        return station;
+    }
+
+    public short getStationsQuantity() {
+        return stationsQuantity;
     }
 }
