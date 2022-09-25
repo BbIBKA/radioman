@@ -2,114 +2,131 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class RadioTest {
-    Radio radio = new Radio();
 
     @Test
-    void shouldSpecifyStationQuantityPositive() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 1);
-        Assertions.assertEquals(1, radio.getStationsQuantity());
+    public void shouldCurrentRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(9);
+        Assertions.assertEquals(9, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationQuantityNegative() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 121);
-        Assertions.assertEquals(120, radio.getStationsQuantity());
+    public void shouldNextRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(9);
+        radioStation.nextCurrentRadioStation();
+        Assertions.assertEquals(0, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationQuantityNegative2() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 0);
-        Assertions.assertEquals(120, radio.getStationsQuantity());
+    public void shouldPrevRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(0);
+        radioStation.prevCurrentRadioStation();
+        Assertions.assertEquals(9, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationWithDefaultQuantityPositive() {
-        radio.setStation(5);
-        Assertions.assertEquals(5, radio.getStation());
+    public void shouldNextCurrentRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(5);
+        radioStation.nextCurrentRadioStation();
+        Assertions.assertEquals(6, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationWithDefaultQuantityNegative() {
-        radio.setStation(11);
-        Assertions.assertEquals(0, radio.getStation());
+    public void shouldPrevCurrentRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(6);
+        radioStation.prevCurrentRadioStation();
+        Assertions.assertEquals(5, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationWithDefaultQuantityNegative2() {
-        radio.setStation(-1);
-        Assertions.assertEquals(0, radio.getStation());
+    public void shouldSetCurrentRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(10);
+        Assertions.assertEquals(0, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationWithCustomQuantityPositive() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 60);
-        radio.setStation(30);
-        Assertions.assertEquals(30, radio.getStation());
+    public void shouldSetCurrentRadioStationTwo() {
+        Radio radioStation = new Radio();
+        radioStation.setCurrentRadioStation(-1);
+        Assertions.assertEquals(0, radioStation.getCurrentRadioStation());
     }
 
     @Test
-    void shouldSpecifyStationWithCustomQuantityNegative() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 60);
-        radio.setStation(61);
-        Assertions.assertEquals(0, radio.getStation());
+    public void shouldPlusCurrentVolume() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(9);
+        volume.plusCurrentVolume();
+        Assertions.assertEquals(10, volume.getCurrentVolume());
     }
 
     @Test
-    void shouldSpecifyStationWithCustomQuantityNegative2() {
-        Radio radio = new Radio((short) 120);
-        radio.setStationsQuantity((short) 60);
-        radio.setStation(-1);
-        Assertions.assertEquals(0, radio.getStation());
-    }
-
-
-    @Test
-    void shouldSwitchStationUpToRoundDefault() {
-        Radio radio = new Radio("ThroughMax", 9);
-        radio.switchStationUp(); // 9~10
-        radio.switchStationUp(); // 10~0
-        Assertions.assertEquals(0, radio.getStation());
+    public void shouldMinusCurrentVolume() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(1);
+        volume.minusCurrentVolume();
+        Assertions.assertEquals(0, volume.getCurrentVolume());
     }
 
     @Test
-    void shouldSwitchStationDownToRoundDefault() {
-        Radio radio = new Radio("ThroughMin", 1);
-        radio.switchStationDown(); // 1~0
-        radio.switchStationDown(); // 0~10
-        Assertions.assertEquals(10, radio.getStation());
-    }
-
-
-    @Test
-    void shouldIncreaseVolumeToThreshold() {
-        Radio radio = new Radio(99);
-        radio.increaseVolume(); // 99~100
-        radio.increaseVolume(); // 100~100
-        Assertions.assertEquals(100, radio.getVolume());
+    public void shouldCurrentVolumeMax() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(10);
+        volume.plusCurrentVolume();
+        Assertions.assertEquals(10, volume.getCurrentVolume());
     }
 
     @Test
-    void shouldDecreaseVolumeToThreshold() {
-        Radio radio = new Radio(1);
-        radio.decreaseVolume(); // 1~0
-        radio.decreaseVolume(); // 0~0
-        Assertions.assertEquals(0, radio.getVolume());
+    public void shouldCurrentVolumeMin() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(0);
+        volume.minusCurrentVolume();
+        Assertions.assertEquals(0, volume.getCurrentVolume());
     }
 
     @Test
-    void shouldSetVolumeNegative() {
-        Radio radio = new Radio(101);
-        Assertions.assertEquals(15, radio.getVolume());
+    public void shouldSetCurrentVolume() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(11);
+        Assertions.assertEquals(10, volume.getCurrentVolume());
     }
 
     @Test
-    void shouldSetVolumeNegative2() {
-        Radio radio = new Radio(-1);
-        Assertions.assertEquals(15, radio.getVolume());
+    public void shouldSetCurrentVolumeTwo() {
+        Radio volume = new Radio();
+        volume.setCurrentVolume(-1);
+        Assertions.assertEquals(0, volume.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldMaxRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setMaxRadioStation(9);
+        Assertions.assertEquals(9, radioStation.getMaxRadioStation());
+    }
+
+    @Test
+    public void shouldMinRadioStation() {
+        Radio radioStation = new Radio();
+        radioStation.setMinRadioStation(0);
+        Assertions.assertEquals(0, radioStation.getMinRadioStation());
+    }
+
+    @Test
+    public void shouldMinVolume() {
+        Radio radioStation = new Radio();
+        radioStation.setMinVolume(0);
+        Assertions.assertEquals(0, radioStation.getMinVolume());
+    }
+
+    @Test
+    public void shouldMaxVolume() {
+        Radio radioStation = new Radio();
+        radioStation.setMaxVolume(10);
+        Assertions.assertEquals(10, radioStation.getMaxVolume());
     }
 }

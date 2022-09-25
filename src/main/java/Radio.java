@@ -1,98 +1,100 @@
 public class Radio {
-    private String radioName = "Конструктор";
-    private int station;
-    private short stationsQuantity = 10;
-    private int volume = 15;
+    private int maxRadioStation = 9;
+    private int minRadioStation = 0;
+    private int currentRadioStation;
+    private int maxVolume = 10;
+    private int minVolume = 0;
+    private int currentVolume;
 
-
-    public Radio() {
+    public int getMaxRadioStation() {
+        return maxRadioStation;
     }
 
-    public Radio(int volume) {
-        if (volume > 100) {
+    public void setMaxRadioStation(int maxRadioStation) {
+        this.maxRadioStation = maxRadioStation;
+    }
+
+    public int getMinRadioStation() {
+        return minRadioStation;
+    }
+
+    public void setMinRadioStation(int minRadioStation) {
+        this.minRadioStation = minRadioStation;
+    }
+
+    public int getCurrentRadioStation() {
+        return currentRadioStation;
+    }
+
+    public void setCurrentRadioStation(int currentRadioStation) {
+        if (currentRadioStation > maxRadioStation) {
             return;
         }
-        if (volume < 0) {
+        if (currentRadioStation < minRadioStation) {
             return;
         }
-        this.volume = volume;
+        this.currentRadioStation = currentRadioStation;
     }
 
-    public Radio(short stationsQuantity) {
-        setStationsQuantity(stationsQuantity);
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
-    public Radio(String radioName, int station) {
-        this.radioName = radioName;
-        setStation(station);
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
     }
 
-    public void setStationsQuantity(short stationsQuantity) {
-        if (stationsQuantity > 120) {
+    public int getMinVolume() {
+        return minVolume;
+    }
+
+    public void setMinVolume(int minVolume) {
+        this.minVolume = minVolume;
+    }
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume > maxVolume) {
+            this.currentVolume = maxVolume;
             return;
         }
-        if (stationsQuantity < 1) {
+        if (currentVolume < minVolume) {
+            this.currentVolume = minVolume;
             return;
         }
-        this.stationsQuantity = stationsQuantity;
+        this.currentVolume = currentVolume;
     }
 
-    public void setStation(int station) {
-        if (station > stationsQuantity) {
+    public void nextCurrentRadioStation() {
+        if (currentRadioStation == maxRadioStation) {
+            this.currentRadioStation = minRadioStation;
             return;
         }
-        if (station < 0) {
+        currentRadioStation++;
+    }
+
+    public void prevCurrentRadioStation() {
+        if (currentRadioStation == minRadioStation) {
+            this.currentRadioStation = maxRadioStation;
             return;
         }
-        this.station = station;
+        currentRadioStation--;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-
-    public void switchStationUp() {
-        if (station == stationsQuantity) {
-            setStation(0);
+    public void plusCurrentVolume() {
+        if (currentVolume >= maxVolume) {
             return;
         }
-        setStation(++station);
+        currentVolume++;
     }
 
-    public void switchStationDown() {
-        if (station == 0) {
-            setStation(stationsQuantity);
+    public void minusCurrentVolume() {
+        if (currentVolume <= minVolume) {
             return;
         }
-        setStation(--station);
-    }
-
-
-    public void increaseVolume() {
-        if (volume == 100) {
-            return;
-        }
-        setVolume(++volume);
-    }
-
-    public void decreaseVolume() {
-        if (volume == 0) {
-            return;
-        }
-        setVolume(--volume);
-    }
-
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public int getStation() {
-        return station;
-    }
-
-    public short getStationsQuantity() {
-        return stationsQuantity;
+        currentVolume--;
     }
 }
